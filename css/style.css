@@ -1,0 +1,53 @@
+/* Map */
+html, body { height: 100%; 
+			 margin: 0; 
+			 padding: 0; }
+
+.header { 
+	z-index: 100;
+	position: fixed;
+	top:0;
+	width:375px;
+}
+
+#map { 
+	height: 667px;
+	width:375px; 
+	background-color: #ccc;
+}
+
+#directions {
+	width: 300px;
+	z-index: 5;
+	position: absolute;
+	top: 20px;
+	left: 85px;
+	background-color: #fff;
+	padding: 10px;
+	border: 1px solid #E0E0E0;
+	font-family: 'Roboto', 'sans-serif';
+	border-radius: 4px; 
+}
+
+#submit {
+	float: right;
+	margin: 15px;
+}
+
+#end, #start {
+	margin: 3px;
+	width: 95%;
+	height: 24px;
+	border: 0px solid #000;
+	border-bottom-width: 1px;
+	border-color: #E0E0E0;
+	background-color: transparent;
+	font-size: 14px;
+}
+
+#mode {
+	border-style: none;
+	margin: 15px 0 0 0px;
+	height: 20px;
+}
+
