@@ -5,7 +5,7 @@ function initMap() {
 
 	/* Directions */
 	var directionsService = new google.maps.DirectionsService;
-	var directionsDisplay = new google.maps.DirectionsRenderer;
+	var directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true});
 
 	/* Map */
 	var mapCanvas = document.getElementById('map');
@@ -29,9 +29,8 @@ function initMap() {
 	}
 
 	/* Directions */ 
-	var onChangeHandler = function () {
-		calculateAndDisplayRoute(directionsService, directionsDisplay);
-	};
+	
+	calculateAndDisplayRoute(directionsService, directionsDisplay);
 }
 
 /* Set Markers */ 
@@ -45,6 +44,8 @@ var addresses = [
 ];
 
 function setMarkers(map) {
+	var postOffice = new google.maps.LatLng(41.4649361, -74.0385725);
+	var startMarker = new google.maps.Marker({icon: "img/post_office.png", map: map, position: postOffice});
 
 	var image = {
           url: 'img/blue_marker2.png',
@@ -73,6 +74,8 @@ function setMarkers(map) {
         });
 	}
 
+
+
 }
 
 
@@ -80,18 +83,35 @@ function setMarkers(map) {
 
 function calculateAndDisplayRoute (directionsService, directionsDisplay) {
 
-	var waypnts = [
-		[{lat: 41.4249306, lng: -74.0615234}, true],
-		[{lat: 41.438291,lng: -74.0860243}, true],
-		[{lat: 41.476554, lng: -74.0576357}, true]
-	];
+	var waypnts = [];
+
+	waypnts.push({
+		location: new google.maps.LatLng(41.429306,-74.0615234),
+		stopover:true
+	});
+
+	waypnts.push({
+		location: new google.maps.LatLng(41.438291,-74.0860243),
+		stopover: true
+	});
+
+	for (i=0; i<waypnts.length; i++) {
+		waypnts[i] = new google.maps.Marker({
+			position: waypnts.location,
+			map: map,
+			icon: "img/red_marker.png"
+			zIndex: 100
+		});
+	}
+
+
     
 	directionsService.route({
 		origin: {lat: 41.4649361, lng: -74.0385725},
 		destination: {lat: 41.4649361, lng: -74.0385725},
-		waypoints: wypnts,
+		waypoints: waypnts,
 		optimizeWaypoints: true,
-		travelMode: DRIVING
+		travelMode: "DRIVING"
 	}, function(response, status) {
           if (status === 'OK') {
             directionsDisplay.setDirections(response);
