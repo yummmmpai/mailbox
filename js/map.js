@@ -47,7 +47,7 @@ function setMarkers(map) {
 	var postOffice = new google.maps.LatLng(41.4649361, -74.0385725);
 	var startMarker = new google.maps.Marker({icon: "img/post_office.png", map: map, position: postOffice});
 
-	var image = {
+	var blueMarker = {
           url: 'img/blue_marker2.png',
           // This marker is 20 pixels wide by 32 pixels high.
           size: new google.maps.Size(20, 32),
@@ -68,13 +68,30 @@ function setMarkers(map) {
 		var marker = new google.maps.Marker({
             position: {lat: address[1], lng: address[2]},
             map: map,
-            icon: image,
+            icon: blueMarker,
             shape: shape,
             title: address[0]
         });
 	}
 
+	var redMarker = {
+		  url: 'img/red_marker2.png',
+          // This marker is 20 pixels wide by 32 pixels high.
+          size: new google.maps.Size(20, 32),
+          // The origin for this image is (0, 0).
+          origin: new google.maps.Point(0, 0),
+          // The anchor for this image is the base of the flagpole at (0, 32).
+          anchor: new google.maps.Point(0, 32)
+	}
 
+
+		var waypnts = new google.maps.Marker({
+			position: new google.maps.LatLng(41.429306,-74.0615234),
+			map: map,
+			shape: shape,
+			icon: redMarker,
+			zIndex:100
+		});
 
 }
 
@@ -95,17 +112,6 @@ function calculateAndDisplayRoute (directionsService, directionsDisplay) {
 		stopover: true
 	});
 
-	for (i=0; i<waypnts.length; i++) {
-		waypnts[i] = new google.maps.Marker({
-			position: waypnts.location,
-			map: map,
-			icon: "img/red_marker.png"
-			zIndex: 100
-		});
-	}
-
-
-    
 	directionsService.route({
 		origin: {lat: 41.4649361, lng: -74.0385725},
 		destination: {lat: 41.4649361, lng: -74.0385725},
